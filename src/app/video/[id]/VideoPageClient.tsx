@@ -5,6 +5,7 @@ import Link from 'next/link';
 import VideoPlayer from '@/components/features/VideoPlayer';
 import ProcessingStatus from '@/components/features/ProcessingStatus';
 import AnalysisPanel from '@/components/features/AnalysisPanel';
+import ChatInterface from '@/components/features/ChatInterface';
 import type { VideoStatus } from '@/types';
 
 interface VideoPageClientProps {
@@ -126,21 +127,28 @@ export default function VideoPageClient({
 
         {/* Ready View */}
         {isReady && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Video Player Section */}
-            <div className="space-y-4">
-              <VideoPlayer videoId={videoId} />
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                <p>
-                  Video expires on{' '}
-                  {new Date(expiresAt).toLocaleString()}
-                </p>
+          <div className="space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Video Player Section */}
+              <div className="space-y-4">
+                <VideoPlayer videoId={videoId} />
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <p>
+                    Video expires on{' '}
+                    {new Date(expiresAt).toLocaleString()}
+                  </p>
+                </div>
+              </div>
+
+              {/* Analysis Section */}
+              <div className="lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto">
+                <AnalysisPanel videoId={videoId} />
               </div>
             </div>
 
-            {/* Analysis Section */}
-            <div className="lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto">
-              <AnalysisPanel videoId={videoId} />
+            {/* Chat Section */}
+            <div className="max-w-4xl mx-auto">
+              <ChatInterface videoId={videoId} />
             </div>
           </div>
         )}
