@@ -77,9 +77,16 @@ export async function processVideo(videoId: string): Promise<void> {
       status: 'processing', // Ready for AI analysis
     });
 
-    // For Phase 1, we mark as ready since AI isn't integrated yet
-    // In Phase 2, the AI processor will pick up videos in 'processing' status
-    await video.update({ status: 'ready' });
+    // Trigger AI analysis
+    console.log(`Starting AI analysis for video ${videoId}`);
+    try {
+      const { processVideoAnalysis } = await import('@/lib/ai/analyzer');
+      await processVideoAnalysis(videoId, false); // Use single-pass by default
+    } catch (analysisError) {
+      console.error(`AI analysis failed for ${videoId}, but video processing succeeded:`, analysisError);
+      // Mark as ready even if AI analysis fails - user can still view the video
+      await video.update({ status: 'ready' });
+    }
 
     console.log(`Video ${videoId} processed successfully`);
   } catch (error) {

@@ -4,6 +4,7 @@ import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import VideoPlayer from '@/components/features/VideoPlayer';
 import ProcessingStatus from '@/components/features/ProcessingStatus';
+import AnalysisPanel from '@/components/features/AnalysisPanel';
 import type { VideoStatus } from '@/types';
 
 interface VideoPageClientProps {
@@ -137,27 +138,9 @@ export default function VideoPageClient({
               </div>
             </div>
 
-            {/* Analysis Section (placeholder for Phase 2) */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
-                Video Analysis
-              </h2>
-              <div className="text-gray-600 dark:text-gray-400">
-                <p className="mb-4">
-                  AI analysis will be available in Phase 2. For now, your video has been successfully processed and is ready for playback.
-                </p>
-                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                  <h3 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
-                    Coming Soon
-                  </h3>
-                  <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-                    <li>• Entity identification (people, vehicles, objects)</li>
-                    <li>• Temporal narrative of events</li>
-                    <li>• Scene context analysis</li>
-                    <li>• Q&A chat about the video</li>
-                  </ul>
-                </div>
-              </div>
+            {/* Analysis Section */}
+            <div className="lg:max-h-[calc(100vh-10rem)] lg:overflow-y-auto">
+              <AnalysisPanel videoId={videoId} />
             </div>
           </div>
         )}
